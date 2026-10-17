@@ -29,17 +29,17 @@ IP addresses and device coordinates are personal data. Use only with informed co
 
 The repository is prepared to keep `.env`, `data/`, and `node_modules/` out of Git. Commit `.env.example`, not your real `.env` or visitor records. GitHub Actions runs `npm ci` and `npm run check` on pushes and pull requests. Pushing source to GitHub does not run the Express server; deployment requires a Node.js host. Configure `ADMIN_PASSWORD` as a private environment variable on that host and use HTTPS for browser location permission. Do not deploy using the short local demo password: visitor analytics include IP addresses and potentially precise coordinates. Use a unique high-entropy production secret. Product photography is remotely hosted by Unsplash and Pexels and needs an internet connection. Add a license file only after choosing a license for your project.
 
-### Deploy the full app with Render
+### Deploy the full app with Render (free demo)
 
-This repository includes `render.yaml` for a Render Node web service. It sets `ADMIN_PASSWORD` as a dashboard-only secret prompt and mounts a persistent disk for visit records. The persistent disk requires a paid Render web-service plan; a free ephemeral service would lose JSON logs after restarts/deploys. Review Render's current prices before creating the service.
+This repository includes `render.yaml` for a Render free Node web service. It prompts for `ADMIN_PASSWORD` privately in Render. The free plan has no persistent disk, so visitor records in `data/visits.json` are temporary and can be erased when the service sleeps, restarts, or deploys. Render may spin down a free service after 15 minutes without traffic; the next request can take about a minute to wake it. This setup is suitable for showing the app, not preserving analytics records.
 
 1. Sign in to Render and choose **New > Blueprint**.
 2. Connect the `Dhif216/Ricky` GitHub repository and deploy the `main` branch.
 3. When prompted for `ADMIN_PASSWORD`, enter a strong, unique password in Render itself. Do not put it in GitHub or this file. The password previously used for local testing was shared in chat, so change it before deploying publicly.
-4. Accept the configured paid service and persistent disk, then wait for the health check to pass.
+4. Select/confirm the Free service and wait for the health check to pass. This blueprint does not request a paid disk.
 5. Share the Render service URL. The storefront is at `/`; the admin login is at `/admin`.
 
-The Render service uses HTTPS, needed for browser location permission. Before inviting visitors, review the consent notice, data handling, and retention requirements. This school/demo starter is not production-hardened for collecting precise location or IP data.
+The Render service uses HTTPS, needed for browser location permission. Before inviting visitors, review the consent notice, data handling, and retention requirements. This demo is not production-hardened for collecting precise location or IP data. Render may still request billing details for account verification or optional services; do not approve a paid plan or disk if you want a no-cost deployment.
 
 ## API
 
